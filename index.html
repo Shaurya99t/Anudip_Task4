@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Exercises Output</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #eef2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        #main-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        #page-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .exercise-card {
+            background-color: #f8f9fa;
+            border-left: 5px solid #3498db;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+        }
+
+        .exercise-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .exercise-content {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        code {
+            background-color: #e0e0e0;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 15px;
+            color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <h1 id="page-title">JavaScript Exercises</h1>
+        <div id="results-area"></div>
+    </div>
+
+    <script>
+        const resultsArea = document.getElementById('results-area');
+
+        function display(title, content) {
+            const card = document.createElement('div');
+            card.className = 'exercise-card';
+
+            const titleEl = document.createElement('h2');
+            titleEl.className = 'exercise-title';
+            titleEl.textContent = title;
+
+            const contentEl = document.createElement('p');
+            contentEl.className = 'exercise-content';
+            contentEl.innerHTML = content;
+
+            card.appendChild(titleEl);
+            card.appendChild(contentEl);
+            
+            resultsArea.appendChild(card);
+        }
+
+        function runExercises() {
+            
+            let userName = prompt("Part A.1: What is your name?");
+            if (userName) {
+                display("1. Greet the User", `Hello, ${userName}!`);
+            } else {
+                display("1. Greet the User", "User did not enter a name.");
+            }
+
+            let num1Str = prompt("Part A.2: Enter the first number:");
+            let num2Str = prompt("Part A.2: Enter the second number:");
+            let num1 = parseFloat(num1Str);
+            let num2 = parseFloat(num2Str);
+            if (!isNaN(num1) && !isNaN(num2)) {
+                let sum = num1 + num2;
+                let difference = num1 - num2;
+                let product = num1 * num2;
+                let quotient = num2 !== 0 ? (num1 / num2).toFixed(2) : "Cannot divide by zero";
+                display("2. Simple Calculator", 
+                    `Sum: ${sum}<br>Difference: ${difference}<br>Product: ${product}<br>Quotient: ${quotient}`
+                );
+            } else {
+                display("2. Simple Calculator", "Invalid numbers entered.");
+            }
+
+            let ageStr = prompt("Part B.3: What is your age?");
+            let age = parseInt(ageStr);
+            if (!isNaN(age)) {
+                let message = "";
+                if (age < 18) {
+                    message = "You are a minor.";
+                } else if (age >= 18 && age <= 60) {
+                    message = "You are an adult.";
+                } else {
+                    message = "You are a senior citizen.";
+                }
+                display("3. Age Checker", message);
+            } else {
+                display("3. Age Checker", "Invalid age entered.");
+            }
+
+            const secretNumber = 7;
+            let guessStr = prompt("Part B.4: Guess the secret number (between 1 and 10):");
+            let guess = parseInt(guessStr);
+            if (!isNaN(guess)) {
+                let feedback = "";
+                if (guess < secretNumber) {
+                    feedback = "Too low!";
+                } else if (guess > secretNumber) {
+                    feedback = "Too high!";
+                } else {
+                    feedback = "Correct!";
+                }
+                display("4. Number Guessing Game", feedback);
+            } else {
+                display("4. Number Guessing Game", "Invalid guess entered.");
+            }
+
+            let numbers1to10 = "";
+            for (let i = 1; i <= 10; i++) {
+                numbers1to10 += i + " ";
+            }
+            display("5. Print 1 to 10", numbers1to10);
+
+            let tableNumStr = prompt("Part C.6: Enter a number for its multiplication table:");
+            let tableNum = parseInt(tableNumStr);
+            if (!isNaN(tableNum)) {
+                let table = "";
+                for (let i = 1; i <= 10; i++) {
+                    table += `${tableNum} x ${i} = ${tableNum * i}<br>`;
+                }
+                display("6. Multiplication Table", table);
+            } else {
+                display("6. Multiplication Table", "Invalid number entered.");
+            }
+
+            let sumOfEvens = 0;
+            for (let i = 1; i <= 100; i++) {
+                if (i % 2 === 0) {
+                    sumOfEvens += i;
+                }
+            }
+            display("7. Sum of Even Numbers", `The sum is: ${sumOfEvens}`);
+
+            let shoppingList = ["Apples", "Milk", "Bread", "Eggs", "Cheese"];
+            let initialList = `Initial list: <code>[${shoppingList.join(", ")}]</code><br>`;
+            shoppingList.push("Juice");
+            let afterPush = `After push("Juice"): <code>[${shoppingList.join(", ")}]</code><br>`;
+            shoppingList.pop();
+            let afterPop = `After pop(): <code>[${shoppingList.join(", ")}]</code>`;
+            display("8. Shopping List", initialList + afterPush + afterPop);
+
+            let numArray = [1, 2, 3, 4, 5];
+            let originalArray = `Original array: <code>[${numArray.join(", ")}]</code><br>`;
+            numArray.reverse();
+            let reversedArray = `Reversed array: <code>[${numArray.join(", ")}]</code>`;
+            display("9. Reverse an Array", originalArray + reversedArray);
+
+            const colors = ["red", "blue", "green", "yellow", "purple"];
+            let userColor = prompt("Part D.10: Enter a color to search for:");
+            if (userColor) {
+                userColor = userColor.toLowerCase();
+                let found = colors.includes(userColor);
+                let searchResult = found 
+                    ? `Yes, the color <code>${userColor}</code> is in the list.`
+                    : `No, the color <code>${userColor}</code> is not in the list.`;
+                display("10. Search in Array", searchResult);
+            } else {
+                display("10. Search in Array", "No color entered.");
+            }
+
+            let fizzBuzzOutput = "";
+            for (let i = 1; i <= 30; i++) {
+                if (i % 3 === 0 && i % 5 === 0) {
+                    fizzBuzzOutput += "FizzBuzz ";
+                } else if (i % 3 === 0) {
+                    fizzBuzzOutput += "Fizz ";
+                } else if (i % 5 === 0) {
+                    fizzBuzzOutput += "Buzz ";
+                } else {
+                    fizzBuzzOutput += i + " ";
+                }
+            }
+            display("11. FizzBuzz", fizzBuzzOutput);
+
+            let word = prompt("Bonus 12: Enter a word to check if it's a palindrome:");
+            if (word) {
+                let reversedWord = "";
+                for (let i = word.length - 1; i >= 0; i--) {
+                    reversedWord += word[i];
+                }
+                let palindromeResult = (word.toLowerCase() === reversedWord.toLowerCase())
+                    ? `<code>${word}</code> is a palindrome.`
+                    : `<code>${word}</code> is not a palindrome.`;
+                display("12. Palindrome Checker", palindromeResult);
+            } else {
+                display("12. Palindrome Checker", "No word entered.");
+            }
+        }
+
+        runExercises();
+    </script>
+</body>
+</html>
